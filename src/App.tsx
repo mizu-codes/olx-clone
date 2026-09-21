@@ -1,7 +1,10 @@
-
 function App() {
   return (
-    <div>App</div>
+    <div className="flex min-h-screen items-center justify-center">
+      <h1 className="text-4xl font-bold">
+        OLX Clone
+      </h1>
+    </div>
   )
 }
 
