@@ -39,6 +39,7 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
         className="relative w-full max-w-md rounded-lg bg-white p-8 shadow-xl"
         onClick={(event) => event.stopPropagation()}
       >
+        {/* Close button */}
         <button
           type="button"
           onClick={onClose}
@@ -48,14 +49,18 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
           ×
         </button>
 
+        {/* Title */}
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900">Login to OLX</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Login to OLX
+          </h2>
 
           <p className="mt-2 text-sm text-gray-500">
             Login to buy and sell products
           </p>
         </div>
 
+        {/* Google button */}
         <button
           type="button"
           onClick={handleGoogleLogin}
@@ -73,7 +78,9 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
         </button>
 
         {error && (
-          <p className="mt-4 text-center text-sm text-red-500">{error}</p>
+          <p className="mt-4 text-center text-sm text-red-500">
+            {error}
+          </p>
         )}
       </div>
     </div>
