@@ -1,5 +1,7 @@
 import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useWishlist } from "../../hooks/useWishlist";
 
 interface ProductCardProps {
   id: string;
@@ -22,6 +24,11 @@ function ProductCard({
 }: ProductCardProps) {
   const navigate = useNavigate();
 
+  const { user } = useAuth();
+  const { toggleWishlist, isWishlisted } = useWishlist();
+
+  const wishlisted = isWishlisted(id);
+
   return (
     <div
       onClick={() => navigate(`/product/${id}`)}
@@ -32,10 +39,22 @@ function ProductCard({
 
         <button
           type="button"
-          onClick={(event) => event.stopPropagation()}
+          onClick={async (event) => {
+            event.stopPropagation();
+
+            if (!user) {
+              return;
+            }
+
+            try {
+              await toggleWishlist(id);
+            } catch (error) {
+              console.error("Wishlist update failed:", error);
+            }
+          }}
           className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow"
         >
-          <Heart size={23} />
+          <Heart size={23} fill={wishlisted ? "currentColor" : "none"} />
         </button>
       </div>
 
