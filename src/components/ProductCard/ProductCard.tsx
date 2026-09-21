@@ -11,6 +11,7 @@ interface ProductCardProps {
   title: string;
   location: string;
   date: string;
+  onLoginRequired?: () => void;
 }
 
 function ProductCard({
@@ -21,6 +22,7 @@ function ProductCard({
   title,
   location,
   date,
+  onLoginRequired,
 }: ProductCardProps) {
   const navigate = useNavigate();
 
@@ -43,8 +45,9 @@ function ProductCard({
             event.stopPropagation();
 
             if (!user) {
-              return;
-            }
+  onLoginRequired?.();
+  return;
+}
 
             try {
               await toggleWishlist(id);

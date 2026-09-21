@@ -9,5 +9,5 @@ export interface Product {
   location: string;
   description: string;
   sellerId: string;
-  createdAt: Timestamp;
+  createdAt: Timestamp | null;
 }

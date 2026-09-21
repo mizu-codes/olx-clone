@@ -135,7 +135,9 @@ function ProductDetails() {
 
               <p>
                 Posted:{" "}
-                {product.createdAt.toDate().toLocaleDateString("en-IN")}
+                {product.createdAt
+    ? product.createdAt.toDate().toLocaleDateString("en-IN")
+    : "Just now"}
               </p>
             </div>
 

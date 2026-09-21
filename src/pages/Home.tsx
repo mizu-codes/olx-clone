@@ -5,25 +5,21 @@ import LoadMore from "../components/LoadMore/LoadMore";
 import Footer from "../components/Footer/Footer";
 import { useEffect, useState } from "react";
 import type { Product } from "../types/Product";
-import { getProducts } from "../services/ProductService";
+import { subscribeToProducts } from "../services/ProductService";
+import LoginModal from "../components/Modal/LoginModal";
 
 function Home() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
+    const [openLogin, setOpenLogin] = useState(false);
 
 useEffect(() => {
-  const loadProducts = async () => {
-    try {
-      const data = await getProducts();
-      setProducts(data);
-    } catch (error) {
-      console.error("Failed to load products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const unsubscribe = subscribeToProducts((data) => {
+    setProducts(data);
+    setLoading(false);
+  });
 
-  loadProducts();
+  return unsubscribe;
 }, []);
 
 if (loading) {
@@ -57,13 +53,22 @@ if (loading) {
               category={product.category}
               title={product.title}
               location={product.location}
-               date={product.createdAt.toDate().toLocaleDateString("en-IN")}
+               date={
+  product.createdAt
+    ? product.createdAt.toDate().toLocaleDateString("en-IN")
+    : "Just now"
+}
+onLoginRequired={() => setOpenLogin(true)}
             />
           ))}
         </div>
       </main>
       <LoadMore/>
       <Footer />
+      <LoginModal
+  isOpen={openLogin}
+  onClose={() => setOpenLogin(false)}
+/>
     </div>
   );
 }

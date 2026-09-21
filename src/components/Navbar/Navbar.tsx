@@ -28,8 +28,13 @@ function Navbar() {
   };
 
   const handleWishlistClick = () => {
-    navigate("/wishlist");
-  };
+  if (!user) {
+    setOpenLogin(true);
+    return;
+  }
+
+  navigate("/wishlist");
+};
 
   const handleLogout = async () => {
     try {
