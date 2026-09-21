@@ -1,23 +1,25 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Home from '../pages/Home'
-import Login from '../pages/Login/Login'
-import Signup from '../pages/Signup/Signup'
 import ProductDetails from '../pages/ProductDetails/ProductDetails'
 import Wishlist from '../pages/Wishlist/Wishlist'
-import SellProduct from '../pages/SellProduct/SellProduct'
+import SellProduct from '../pages/SellProduct/SellProduct';
+import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
-  return (
+   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path="/wishlist" element={<Wishlist />} />
+        {/* <Route path="/my-ads" element={<MyAds />} /> */}
+      </Route>
+
       <Route path="/product/:id" element={<ProductDetails />} />
-      <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/sell" element={<SellProduct />} />
     </Routes>
-  )
+  );
 }
 
 export default AppRoutes
