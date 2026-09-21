@@ -111,7 +111,11 @@ function Wishlist() {
               category={product.category}
               title={product.title}
               location={product.location}
-              date={product.createdAt.toDate().toLocaleDateString("en-IN")}
+              date={
+                product.createdAt
+                  ? product.createdAt.toDate().toLocaleDateString("en-IN")
+                  : "Just now"
+              }
             />
           ))}
         </div>
