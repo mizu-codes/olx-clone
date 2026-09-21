@@ -62,7 +62,7 @@ if (loading) {
           ))}
         </div>
       </main>
-      <LoadMore />
+      <LoadMore/>
       <Footer />
     </div>
   );
