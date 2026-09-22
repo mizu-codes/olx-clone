@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import type { Product } from "../types/Product";
 import { subscribeToProducts } from "../services/ProductService";
 import LoginModal from "../components/Modal/LoginModal";
+import { PageLoader } from "../components/Loading/LoadingSpinner";
 
 function Home() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -28,9 +29,7 @@ function Home() {
         <Navbar />
         <CategoryBar />
 
-        <div className="flex min-h-[50vh] items-center justify-center">
-          <p>Loading products...</p>
-        </div>
+        <PageLoader label="Loading products..." />
       </div>
     );
   }

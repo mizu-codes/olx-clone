@@ -9,6 +9,7 @@ import Footer from "../../components/Footer/Footer";
 
 import { getProductById } from "../../services/ProductService";
 import type { Product } from "../../types/Product";
+import { PageLoader } from "../../components/Loading/LoadingSpinner";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -43,9 +44,7 @@ function ProductDetails() {
         <Navbar />
         <CategoryBar />
 
-        <div className="flex min-h-[50vh] items-center justify-center px-4 text-center">
-          <p>Loading product...</p>
-        </div>
+        <PageLoader label="Loading product..." />
 
         <Footer />
       </div>

@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { convertImageToBase64 } from "../../utils/imageUtils";
 import { createProduct } from "../../services/ProductService";
 import { toast } from "../../utils/toast";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 interface SellModalProps {
   isOpen: boolean;
@@ -29,6 +30,10 @@ function SellModal({ isOpen, onClose }: SellModalProps) {
 
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (submitting) {
+      return;
+    }
 
     if (!user) {
       setError("Please login first.");
@@ -255,9 +260,19 @@ function SellModal({ isOpen, onClose }: SellModalProps) {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitting ? "Posting..." : "Sell Item"}
+            {submitting ? (
+              <>
+                <LoadingSpinner
+                  size="sm"
+                  className="border-white/40 border-t-white"
+                />
+                Posting...
+              </>
+            ) : (
+              "Sell Item"
+            )}
           </button>
         </form>
       </div>

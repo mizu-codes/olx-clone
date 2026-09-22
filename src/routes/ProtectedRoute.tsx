@@ -1,11 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { PageLoader } from "../components/Loading/LoadingSpinner";
 
 function ProtectedRoute() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <PageLoader label="Checking your session..." minHeight="min-h-screen" />
+    );
   }
 
   if (!user) {
