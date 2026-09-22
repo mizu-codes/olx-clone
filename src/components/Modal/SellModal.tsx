@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import { convertImageToBase64 } from "../../utils/imageUtils";
 import { createProduct } from "../../services/ProductService";
+import { toast } from "../../utils/toast";
 
 interface SellModalProps {
   isOpen: boolean;
@@ -69,12 +70,24 @@ function SellModal({ isOpen, onClose }: SellModalProps) {
       return;
     }
 
+    setSubmitting(true);
+    setError("");
+
+    let imageBase64: string;
+
     try {
-      setSubmitting(true);
-      setError("");
+      imageBase64 = await convertImageToBase64(image);
+    } catch (conversionError) {
+      console.error("Failed to process image:", conversionError);
 
-      const imageBase64 = await convertImageToBase64(image);
+      const message = "Couldn't process your image. Please try again.";
+      setError(message);
+      toast.error(message);
+      setSubmitting(false);
+      return;
+    }
 
+    try {
       await createProduct(
         user.uid,
         trimmedTitle,
@@ -92,15 +105,14 @@ function SellModal({ isOpen, onClose }: SellModalProps) {
       setDescription("");
       setImage(null);
 
+      toast.success("Your item is now live!.");
       onClose();
-    } catch (error) {
-      console.error("Failed to create product:", error);
+    } catch (createError) {
+      console.error("Failed to create product:", createError);
 
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Failed to post product. Please try again.",
-      );
+      const message = "Couldn't post your listing.";
+      setError(message);
+      toast.error(message);
     } finally {
       setSubmitting(false);
     }

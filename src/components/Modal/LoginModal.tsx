@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Smartphone, X } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
+import { toast } from "../../utils/toast";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -38,10 +39,14 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
       setLoading(true);
 
       await loginWithGoogle();
+
+      toast.success("Welcome back!");
       onClose();
     } catch (error) {
       console.error(error);
-      setError("Google login failed. Please try again.");
+      const message = "Unable to sign in. Please try again.";
+      setError(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
