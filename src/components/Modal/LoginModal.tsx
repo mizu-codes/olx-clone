@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, Smartphone, X } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import { toast } from "../../utils/toast";
+import { LoadingSpinner } from "../Loading/LoadingSpinner";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -146,7 +147,10 @@ function LoginModal({ isOpen, onClose }: LoginModalProps) {
           className="mt-3 flex w-full items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? (
-            "Signing in..."
+            <>
+              <LoadingSpinner size="sm" />
+              Signing in...
+            </>
           ) : (
             <>
               <img

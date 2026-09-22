@@ -10,6 +10,7 @@ import { useWishlist } from "../../hooks/useWishlist";
 import { getProductById } from "../../services/ProductService";
 
 import type { Product } from "../../types/Product";
+import { PageLoader } from "../../components/Loading/LoadingSpinner";
 
 function Wishlist() {
   const navigate = useNavigate();
@@ -67,9 +68,7 @@ function Wishlist() {
       </div>
 
       {loading || loadingProducts ? (
-        <div className="flex min-h-[40vh] items-center justify-center">
-          <p>Loading...</p>
-        </div>
+        <PageLoader label="Loading your wishlist..." minHeight="min-h-[40vh]" />
       ) : products.length === 0 ? (
         <main className="flex flex-col items-center justify-center px-4 py-14 text-center sm:py-16">
           <img
