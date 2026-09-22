@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import LoginModal from "../Modal/LoginModal";
 import SellModal from "../Modal/SellModal";
+import { toast } from "../../utils/toast";
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -40,8 +41,10 @@ function Navbar() {
     try {
       await logout();
       setOpenProfile(false);
+      toast.success("Signed out successfully.");
     } catch (error) {
       console.error("Logout failed:", error);
+      toast.error("Unable to sign out. Please try again.");
     }
   };
 

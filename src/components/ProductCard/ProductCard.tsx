@@ -2,6 +2,7 @@ import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useWishlist } from "../../hooks/useWishlist";
+import { toast } from "../../utils/toast";
 
 interface ProductCardProps {
   id: string;
@@ -31,6 +32,32 @@ function ProductCard({
 
   const wishlisted = isWishlisted(id);
 
+  const handleWishlistToggle = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.stopPropagation();
+
+    if (!user) {
+      onLoginRequired?.();
+      return;
+    }
+
+    const wasWishlisted = wishlisted;
+
+    try {
+      await toggleWishlist(id);
+
+      toast.success(
+        wasWishlisted
+          ? "Removed from your wishlist."
+          : "Added to your wishlist.",
+      );
+    } catch (error) {
+      console.error("Wishlist update failed:", error);
+      toast.error("Couldn't update your wishlist. Please try again.");
+    }
+  };
+
   return (
     <div
       onClick={() => navigate(`/product/${id}`)}
@@ -41,20 +68,7 @@ function ProductCard({
 
         <button
           type="button"
-          onClick={async (event) => {
-            event.stopPropagation();
-
-            if (!user) {
-              onLoginRequired?.();
-              return;
-            }
-
-            try {
-              await toggleWishlist(id);
-            } catch (error) {
-              console.error("Wishlist update failed:", error);
-            }
-          }}
+          onClick={handleWishlistToggle}
           className="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-full bg-white shadow"
         >
           <Heart size={19} fill={wishlisted ? "currentColor" : "none"} />
