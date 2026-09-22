@@ -1,4 +1,4 @@
-import { Heart, MapPin, Search, UserRound } from "lucide-react";
+import { Bell, Heart, MapPin, Search, UserRound } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
@@ -28,13 +28,13 @@ function Navbar() {
   };
 
   const handleWishlistClick = () => {
-  if (!user) {
-    setOpenLogin(true);
-    return;
-  }
+    if (!user) {
+      setOpenLogin(true);
+      return;
+    }
 
-  navigate("/wishlist");
-};
+    navigate("/wishlist");
+  };
 
   const handleLogout = async () => {
     try {
@@ -48,64 +48,61 @@ function Navbar() {
   return (
     <>
       <header className="border-b border-gray-200 bg-white">
-        <div className="flex h-20 items-center gap-4 px-6">
-          {/* Logo */}
+        <div className="flex h-14 items-center gap-3 px-4 sm:h-16 md:gap-6 md:px-6">
           <div className="shrink-0">
-            <h1 className="text-4xl font-extrabold tracking-tight text-blue-600">
-              olx
-            </h1>
+            <img
+              src="/images/olx_logo_2025.svg"
+              alt="OLX"
+              className="h-10 w-auto sm:h-11 md:h-12"
+            />
           </div>
 
-          {/* Location */}
           <button
             type="button"
-            className="flex h-14 w-80 shrink-0 items-center justify-between rounded-full border border-gray-300 px-5"
+            className="hidden h-11 w-44 shrink-0 items-center justify-between rounded-full border border-gray-300 px-4 sm:flex md:w-52"
           >
-            <div className="flex items-center gap-3">
-              <MapPin className="text-blue-600" size={22} />
+            <div className="flex items-center gap-2">
+              <MapPin className="text-blue-600" size={18} />
 
-              <span className="text-base font-medium">India</span>
+              <span className="truncate text-sm font-medium">India</span>
             </div>
           </button>
 
-          {/* Search */}
-          <div className="flex h-14 min-w-0 flex-1 overflow-hidden rounded-full border border-gray-300">
+          <div className="flex h-11 w-full min-w-0 max-w-sm overflow-hidden rounded-full border border-gray-300 sm:max-w-md md:max-w-lg">
             <input
               type="text"
               placeholder='Search "Cars"'
-              className="min-w-0 flex-1 px-6 text-base outline-none"
+              className="min-w-0 flex-1 px-4 text-sm outline-none md:px-5"
             />
 
             <button
               type="button"
-              className="flex w-16 items-center justify-center bg-blue-600 text-white"
+              className="flex w-11 shrink-0 items-center justify-center bg-blue-600 text-white md:w-12"
             >
-              <Search size={26} />
+              <Search size={20} />
             </button>
           </div>
 
-          {/* Wishlist */}
           <button
             type="button"
             onClick={handleWishlistClick}
-            className="flex shrink-0 flex-col items-center gap-1"
+            className="ml-auto hidden shrink-0 flex-col items-center gap-1 sm:flex"
           >
-            <Heart size={25} strokeWidth={2} />
-            <span className="text-sm font-medium">Wishlist</span>
+            <Heart size={22} strokeWidth={2} />
+            <span className="text-xs font-medium">Wishlist</span>
           </button>
 
-          {/* Login / Profile */}
           {!user ? (
             <button
               type="button"
               onClick={handleLoginClick}
-              className="flex shrink-0 flex-col items-center gap-1"
+              className="ml-auto flex shrink-0 flex-col items-center gap-1 sm:ml-0"
             >
-              <UserRound size={25} strokeWidth={2} />
-              <span className="text-sm font-medium">Login</span>
+              <UserRound size={22} strokeWidth={2} />
+              <span className="text-xs font-medium">Login</span>
             </button>
           ) : (
-            <div className="relative shrink-0">
+            <div className="relative ml-auto shrink-0 sm:ml-0">
               <button
                 type="button"
                 onClick={() => setOpenProfile((prev) => !prev)}
@@ -114,12 +111,12 @@ function Navbar() {
                 <img
                   src={user.photoURL ?? ""}
                   alt={user.displayName ?? "Profile"}
-                  className="h-12 w-12 rounded-full object-cover"
+                  className="h-10 w-10 rounded-full object-cover md:h-11 md:w-11"
                 />
               </button>
 
               {openProfile && (
-                <div className="absolute right-0 top-14 z-50 w-48 rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
+                <div className="absolute right-0 top-12 z-50 w-48 rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
                   <p className="truncate px-2 py-1 text-sm font-semibold">
                     {user.displayName}
                   </p>
@@ -136,15 +133,54 @@ function Navbar() {
             </div>
           )}
 
-          {/* Sell */}
           <button
             type="button"
             onClick={handleSellClick}
-            className="flex h-14 shrink-0 items-center gap-2 rounded-full border-4 border-blue-600 px-6 font-bold text-blue-700 shadow-md"
+            aria-label="Sell an item"
+            className="shrink-0 transition hover:opacity-90 active:scale-95"
           >
-            <span className="text-2xl leading-none">+</span>
-            SELL
+            <img
+              src="/images/addButton.png"
+              alt="Sell"
+              className="h-10 w-auto object-contain md:h-11"
+            />
           </button>
+
+          <button
+            type="button"
+            className="hidden shrink-0 items-center justify-center text-gray-800 sm:flex"
+          >
+            <Bell size={24} strokeWidth={2} />
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between gap-3 border-t border-gray-100 px-4 py-2 sm:hidden">
+          <button
+            type="button"
+            className="flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-gray-300 px-3"
+          >
+            <MapPin className="text-blue-600" size={16} />
+            <span className="text-sm font-medium">India</span>
+          </button>
+
+          <div className="flex shrink-0 items-center gap-5">
+            <button
+              type="button"
+              onClick={handleWishlistClick}
+              className="flex items-center justify-center text-gray-800"
+              aria-label="Wishlist"
+            >
+              <Heart size={20} strokeWidth={2} />
+            </button>
+
+            <button
+              type="button"
+              className="flex items-center justify-center text-gray-800"
+              aria-label="Notifications"
+            >
+              <Bell size={20} strokeWidth={2} />
+            </button>
+          </div>
         </div>
       </header>
 

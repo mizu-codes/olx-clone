@@ -1,10 +1,8 @@
 const MAX_WIDTH = 1000;
 const MAX_HEIGHT = 1000;
-const MAX_SIZE = 900 * 1024; // 900 KB
+const MAX_SIZE = 900 * 1024;
 
-export function convertImageToBase64(
-  file: File
-): Promise<string> {
+export function convertImageToBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const image = new Image();
     const objectUrl = URL.createObjectURL(file);
@@ -14,7 +12,6 @@ export function convertImageToBase64(
 
       let { width, height } = image;
 
-      // Resize while keeping the original aspect ratio
       if (width > MAX_WIDTH || height > MAX_HEIGHT) {
         const widthRatio = MAX_WIDTH / width;
         const heightRatio = MAX_HEIGHT / height;
@@ -48,7 +45,6 @@ export function convertImageToBase64(
               return;
             }
 
-            // If image is still too large, reduce quality
             if (blob.size > MAX_SIZE && quality > 0.3) {
               quality -= 0.1;
               createCompressedImage();
@@ -56,11 +52,7 @@ export function convertImageToBase64(
             }
 
             if (blob.size > MAX_SIZE) {
-              reject(
-                new Error(
-                  "Image is still too large after compression."
-                )
-              );
+              reject(new Error("Image is still too large after compression."));
               return;
             }
 
@@ -71,15 +63,13 @@ export function convertImageToBase64(
             };
 
             reader.onerror = () => {
-              reject(
-                new Error("Failed to convert compressed image")
-              );
+              reject(new Error("Failed to convert compressed image"));
             };
 
             reader.readAsDataURL(blob);
           },
           "image/jpeg",
-          quality
+          quality,
         );
       };
 

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/Navbar/Navbar";
@@ -57,67 +56,64 @@ function Wishlist() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen overflow-x-hidden bg-white">
       <Navbar />
       <CategoryBar />
 
-      {/* Heading */}
-      <div className="border-b border-gray-200">
-        <h1 className="inline-block border-b-4 border-blue-700 px-6 py-5 text-lg font-semibold">
-          WISHLIST
+      <div className="border-b border-gray-200 px-4 sm:px-6 lg:px-8">
+        <h1 className="inline-block border-b-4 border-blue-700 py-4 text-base font-bold uppercase tracking-wide sm:py-5 sm:text-lg">
+          Wishlist
         </h1>
       </div>
 
       {loading || loadingProducts ? (
-        <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex min-h-[40vh] items-center justify-center">
           <p>Loading...</p>
         </div>
       ) : products.length === 0 ? (
-        /* Empty Wishlist */
-        <main className="flex min-h-[55vh] flex-col items-center justify-center px-6 text-center">
-          <div className="mb-8">
-            <Heart
-              size={110}
-              strokeWidth={1.5}
-              className="text-pink-200"
-              fill="currentColor"
-            />
-          </div>
+        <main className="flex flex-col items-center justify-center px-4 py-14 text-center sm:py-16">
+          <img
+            src="/images/love.png"
+            alt="No wishlist items"
+            className="h-28 w-auto object-contain sm:h-32"
+          />
 
-          <h2 className="text-2xl font-semibold text-gray-700">
+          <h2 className="mt-6 text-xl font-semibold text-gray-700 sm:mt-8 sm:text-2xl">
             You haven't liked any ads yet
           </h2>
 
-          <p className="mt-4 max-w-sm text-lg text-gray-500">
+          <p className="mt-3 max-w-xs text-base text-gray-500 sm:mt-4 sm:max-w-sm sm:text-lg">
             Like ads and share them with the world
           </p>
 
           <button
             type="button"
             onClick={handleDiscover}
-            className="mt-8 rounded-md border-2 border-blue-700 px-7 py-3 font-semibold text-blue-700 transition hover:bg-blue-50"
+            className="mt-6 rounded-sm border-2 border-blue-700 px-7 py-2.5 text-sm font-semibold text-blue-700 transition hover:bg-blue-50 sm:mt-8 sm:py-3 sm:text-base"
           >
             Discover
           </button>
         </main>
       ) : (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              price={product.price}
-              category={product.category}
-              title={product.title}
-              location={product.location}
-              date={
-                product.createdAt
-                  ? product.createdAt.toDate().toLocaleDateString("en-IN")
-                  : "Just now"
-              }
-            />
-          ))}
+        <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                price={product.price}
+                category={product.category}
+                title={product.title}
+                location={product.location}
+                date={
+                  product.createdAt
+                    ? product.createdAt.toDate().toLocaleDateString("en-IN")
+                    : "Just now"
+                }
+              />
+            ))}
+          </div>
         </div>
       )}
 
