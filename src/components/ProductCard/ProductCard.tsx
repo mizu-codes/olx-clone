@@ -64,7 +64,7 @@ function ProductCard({
       className="cursor-pointer overflow-hidden rounded-lg border border-gray-200 bg-white transition hover:shadow-md"
     >
       <div className="relative h-40 w-full bg-gray-100 sm:h-44">
-        <img src={image} alt={title} className="h-full w-full object-cover" />
+        <img src={image} alt={title} className="h-full w-full object-contain" />
 
         <button
           type="button"
