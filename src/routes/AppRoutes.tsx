@@ -1,12 +1,12 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import Home from '../pages/Home'
-import ProductDetails from '../pages/ProductDetails/ProductDetails'
-import Wishlist from '../pages/Wishlist/Wishlist'
+import Home from "../pages/Home";
+import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import Wishlist from "../pages/Wishlist/Wishlist";
 import ProtectedRoute from "./ProtectedRoute";
 
 function AppRoutes() {
-   return (
+  return (
     <Routes>
       <Route path="/" element={<Home />} />
 
@@ -19,4 +19,4 @@ function AppRoutes() {
   );
 }
 
-export default AppRoutes
+export default AppRoutes;

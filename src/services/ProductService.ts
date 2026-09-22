@@ -16,10 +16,7 @@ import type { Product } from "../types/Product";
 export async function getProducts(): Promise<Product[]> {
   const productsRef = collection(db, "products");
 
-  const productsQuery = query(
-    productsRef,
-    orderBy("createdAt", "desc")
-  );
+  const productsQuery = query(productsRef, orderBy("createdAt", "desc"));
 
   const snapshot = await getDocs(productsQuery);
 
@@ -30,7 +27,7 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export async function getProductById(
-  productId: string
+  productId: string,
 ): Promise<Product | null> {
   const productRef = doc(db, "products", productId);
 
@@ -53,7 +50,7 @@ export async function createProduct(
   price: number,
   location: string,
   description: string,
-  image: string
+  image: string,
 ): Promise<string> {
   const productRef = await addDoc(collection(db, "products"), {
     title,
@@ -70,14 +67,11 @@ export async function createProduct(
 }
 
 export function subscribeToProducts(
-  onProductsChange: (products: Product[]) => void
+  onProductsChange: (products: Product[]) => void,
 ) {
   const productsRef = collection(db, "products");
 
-  const productsQuery = query(
-    productsRef,
-    orderBy("createdAt", "desc")
-  );
+  const productsQuery = query(productsRef, orderBy("createdAt", "desc"));
 
   const unsubscribe = onSnapshot(
     productsQuery,
@@ -91,7 +85,7 @@ export function subscribeToProducts(
     },
     (error) => {
       console.error("Failed to listen to products:", error);
-    }
+    },
   );
 
   return unsubscribe;

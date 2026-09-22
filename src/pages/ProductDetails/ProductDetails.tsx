@@ -43,7 +43,7 @@ function ProductDetails() {
         <Navbar />
         <CategoryBar />
 
-        <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex min-h-[50vh] items-center justify-center px-4 text-center">
           <p>Loading product...</p>
         </div>
 
@@ -58,11 +58,9 @@ function ProductDetails() {
         <Navbar />
         <CategoryBar />
 
-        <div className="flex min-h-[50vh] items-center justify-center">
+        <div className="flex min-h-[50vh] items-center justify-center px-4">
           <div className="text-center">
-            <h1 className="text-2xl font-bold">
-              Product not found
-            </h1>
+            <h1 className="text-xl font-bold sm:text-2xl">Product not found</h1>
 
             <button
               type="button"
@@ -81,72 +79,64 @@ function ProductDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen overflow-x-hidden bg-gray-50">
       <Navbar />
       <CategoryBar />
 
-      <main className="px-6 py-8">
+      <main className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="mb-6 flex items-center gap-2 text-gray-700"
+          className="mb-4 flex items-center gap-2 text-gray-700 sm:mb-6"
         >
           <ArrowLeft size={20} />
           Back
         </button>
 
-        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
-          {/* Product Image */}
-          <div className="overflow-hidden rounded-lg bg-white">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
+          <div className="flex items-center justify-center overflow-hidden rounded-lg bg-white">
             <img
               src={product.image}
               alt={product.title}
-              className="h-full max-h-[500px] w-full object-cover"
+              className="h-auto max-h-[500px] w-full object-contain"
             />
           </div>
 
-          {/* Product Information */}
-          <div className="rounded-lg bg-white p-8">
-            <div className="flex items-start justify-between">
-              <h1 className="text-3xl font-bold">
+          <div className="min-w-0 rounded-lg bg-white p-5 sm:p-6 lg:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <h1 className="break-words text-2xl font-bold sm:text-3xl">
                 ₹ {product.price.toLocaleString("en-IN")}
               </h1>
 
               <button
                 type="button"
-                className="flex h-11 w-11 items-center justify-center rounded-full border"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border sm:h-11 sm:w-11"
               >
                 <Heart size={22} />
               </button>
             </div>
 
-            <p className="mt-4 text-gray-500">
-              {product.category}
-            </p>
+            <p className="mt-3 text-gray-500 sm:mt-4">{product.category}</p>
 
-            <h2 className="mt-3 text-2xl font-semibold">
+            <h2 className="mt-2 break-words text-xl font-semibold sm:mt-3 sm:text-2xl">
               {product.title}
             </h2>
 
-            <div className="mt-6 space-y-2 text-gray-600">
-              <p>
-                Location: {product.location}
-              </p>
+            <div className="mt-5 space-y-2 text-gray-600 sm:mt-6">
+              <p className="break-words">Location: {product.location}</p>
 
               <p>
                 Posted:{" "}
                 {product.createdAt
-    ? product.createdAt.toDate().toLocaleDateString("en-IN")
-    : "Just now"}
+                  ? product.createdAt.toDate().toLocaleDateString("en-IN")
+                  : "Just now"}
               </p>
             </div>
 
-            <div className="mt-8 border-t pt-6">
-              <h3 className="text-lg font-semibold">
-                Description
-              </h3>
+            <div className="mt-6 border-t pt-5 sm:mt-8 sm:pt-6">
+              <h3 className="text-lg font-semibold">Description</h3>
 
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 break-words text-gray-600">
                 {product.description}
               </p>
             </div>
