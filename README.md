@@ -13,7 +13,7 @@
 
 <br/><br/>
 
-[![Live Demo](https://img.shields.io/badge/🌐_LIVE_DEMO-2563EB?style=for-the-badge)](YOUR_VERCEL_URL)
+[![Live Demo](https://img.shields.io/badge/🌐_LIVE_DEMO-2563EB?style=for-the-badge)](https://mizu-olx.vercel.app/)
 
 </div>
 
