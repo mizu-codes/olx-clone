@@ -37,13 +37,13 @@
 
 ## Highlights
 
-- 🔐 Firebase Authentication
-- 🔎 Search & Browse Listings
-- 📂 Category-Based Product Listings
-- ➕ Post & Manage Advertisements
+## Highlights
+
+- 🔐 Firebase Authentication & Firestore
+- 🏷️ Sell & List Products
 - ❤️ Favourite Listings
 - 📄 Product Details & Information
-- 📱 Fully Responsive Marketplace UI
+- 📱 Fully Responsive, OLX-inspired UI
 
 <br/>
 
