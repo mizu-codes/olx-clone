@@ -37,8 +37,6 @@
 
 ## Highlights
 
-## Highlights
-
 - 🔐 Firebase Authentication & Firestore
 - 🏷️ Sell & List Products
 - ❤️ Favourite Listings
